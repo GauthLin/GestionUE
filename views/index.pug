@@ -2,4 +2,12 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  form.form-horizontal
+    div.form-group
+      label(class='col-sm-2 control-label', for='nom') Nom
+      div.col-sm-10
+        input(type='text', class='form-control', id='nom')
+    div.form-group
+      label(class='col-sm-2 control-label', for='code') Code
+      div.col-sm-10
+        input(type='text', class='form-control', id='code')
