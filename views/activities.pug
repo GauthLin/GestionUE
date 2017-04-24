@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  h1= title
+  if ues.length == 0
+    div.alert.alert-warning Vous devez d'abord créer une unité d'enseignement avant de pouvoir créer de nouvelles activités.
+  form.form-horizontal(action='/api/activities', method='post')
+    div.form-group
+      label(class='col-sm-2 control-label', for='name') Nom
+      div.col-sm-10
+        input(type='text', class='form-control', id='name', name='name', required)
+    div.form-group
+      label(class='col-sm-2 control-label', for='code') Code
+      div.col-sm-10
+        input(type='text', class='form-control', id='code', name='code', required)
+    div.form-group
+      label(class='col-sm-2 control-label', for='type') Type
+      div.col-sm-10
+        select(class='form-control', id='type', name='type', required)
+          option(value='') -- Veuillez choisir un type d'activité --
+          option(value='course') Cours
+          option(value='laboratory') Laboratoire
+    div.form-group
+      label(class='col-sm-2 control-label', for='hours') Nombre d'heures
+      div.col-sm-10
+        input(type='number', min='0.5', step='0.5', class='form-control', id='hours', name='hours', required)
+    div.form-group
+      label(class='col-sm-2 control-label', for='ue') Unité d'enseignement
+      div.col-sm-10
+        select(class='form-control', id='ue', name='ue', required)
+          option(value='') -- Veuillez choisir une unité d'enseignement --
+          each ue in ues
+            option(values=ue.id)= ue.name
+    div.form-group
+      label(class='col-sm-2 control-label', for='local') Local de prédilection
+      div.col-sm-10
+        input(type='text', class='form-control', id='local', name='local')
+    div.col-sm-offset-2
+      button(type='submit', class='btn btn-success') Créer l'activité
