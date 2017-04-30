@@ -1,22 +1,27 @@
 doctype html
 html
-  head
-    title= title
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatibile', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-  body
-    nav.navbar.navbar-default
-      div.container-fluid
-        div.navbar-header
-          a(class='navbar-brand', href='/') Gestion des UEs
-        div.collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li.active
-              a(href='/') Unités d'enseignement
-            li
-              a(href='/activities') Activités
-    div.container-fluid
-        block content
+    block link
+        - var current_page = 'home'
+
+    head
+        title= title
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatibile', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    body
+        nav.navbar.navbar-default
+            div.container-fluid
+                div.navbar-header
+                    a(class='navbar-brand', href='/') Gestion des UEs
+                div.collapse.navbar-collapse
+                    ul.nav.navbar-nav
+                        li(class={active: current_page === 'home'})
+                            a(href='/') Accueil
+                        li(class={active: current_page === 'ue'})
+                            a(href='/ue') Unités d'enseignement
+                        li(class={active: current_page === 'activities'})
+                            a(href='/activities') Activités
+        div.container-fluid
+            block content

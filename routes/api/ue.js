@@ -7,7 +7,7 @@ var db = new sqlite3.Database('gestion_ue.db');
 router.post('/', function(req, res) {
 	var code = req.body.code, name = req.body.name;
 	// check values
-	if (code.length == 0 || name.length == 0) {
+	if (code.length === 0 || name.length === 0) {
 		res.json({'status': 'fail', 'data': {
 			'message': "Le nom et le code de l'unité d'enseignement ne peuvent pas être vide!"
 		}});
