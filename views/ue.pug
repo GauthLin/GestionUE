@@ -5,14 +5,19 @@ block link
 
 block content
     h1= title
-    form.form-horizontal(action='/api/ue', method='post')
+    form.form-horizontal(action='/api/ue', method = ue ? 'put' : 'post')
         div.form-group
             label(class='col-sm-2 control-label', for='name') Nom
             div.col-sm-10
-                input(type='text', class='form-control', id='name', name='name')
+                input(type='text', class='form-control', id='name', name='name', value= ue ? ue[0].name : '')
         div.form-group
             label(class='col-sm-2 control-label', for='code') Code
             div.col-sm-10
-                input(type='text', class='form-control', id='code', name='code')
+                input(type='text', class='form-control', id='code', name='code', value= ue ? ue[0].code : '')
         div.col-sm-offset-2
-            button(type='submit', class='btn btn-success') Créer l'unité d'enseignement
+            if ue
+                button(type='submit', class='btn btn-warning') Modifier
+                |
+                button(type='button', class='btn btn-danger') Supprimer
+            else
+                button(type='submit', class='btn btn-success') Créer l'unité d'enseignement

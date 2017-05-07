@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('gestion_ue.db');
+var activity_manager = require('../../manager/ActivityManager');
 
 router.post('/', function(req, res) {
     var name = req.body.name,
@@ -12,13 +11,9 @@ router.post('/', function(req, res) {
         ue_id = req.body.ue,
         local = req.body.local;
 
-    db.serialize(function() {
-        var stmt = db.prepare('INSERT INTO activities (code, hours, local, name, type, ue_id) VALUES (?, ?, ?, ?, ?, ?)');
-        stmt.run(code, hours, local, name, type, ue_id);
-        stmt.finalize();
+    activity_manager.insert(code, hours, local, name, type, ue_id, function() {
+        res.json({'status': 'success', 'data': null});
     });
-
-    res.json({'status': 'success', 'data': null});
 });
 
 module.exports = router;

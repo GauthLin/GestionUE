@@ -10,7 +10,7 @@ block content
             each ue in ues
                 div.list-group-item
                     h2
-                        a #{ue.name} - #{ue.code}
+                        a(href='/ue/'+ ue.id) #{ue.name} - #{ue.code}
 
                     div.list-group
                         each activity in ue.activities

@@ -16,12 +16,15 @@ router.get('/ue', function (req, res) {
     res.render('ue', {title: "Gestion des unités d'enseignement"});
 });
 
-router.use('/activities', function (req, res) {
-    db.serialize(function () {
-        db.all('SELECT id, code, name FROM ue', function (err, rows) {
-            res.render('activities', {title: "Activités", ues: rows});
-        });
+router.get('/ue/:id', function (req, res) {
+    ue_manager.find(req.params.id, function(err, data) {
+        res.render('ue', {title: "Gestion des unités d'enseignement", ue: data});
+    });
+});
 
+router.use('/activities', function (req, res) {
+    ue_manager.find(null, function(err, data) {
+        res.render('activities', {title: "Activités", ues: data});
     });
 });
 
