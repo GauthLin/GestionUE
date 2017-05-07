@@ -3,3 +3,17 @@ extends layout
 block content
     h1= title
 
+    if error
+        div.alert.alert-warning= error
+    else
+        div.list-group
+            each ue in ues
+                div.list-group-item
+                    h2
+                        a #{ue.name} - #{ue.code}
+
+                    div.list-group
+                        each activity in ue.activities
+                            div.list-group-item
+                                h2
+                                    a #{activity.name} - #{activity.code}

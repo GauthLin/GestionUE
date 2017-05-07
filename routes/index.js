@@ -4,8 +4,12 @@ var router = express.Router();
 var sqlite = require('sqlite3').verbose();
 var db = new sqlite.Database('gestion_ue.db');
 
+var ue_manager = require('../manager/UEManager');
+
 router.get('/', function (req, res) {
-    res.render('index', {title: "Page d'accueil"});
+    ue_manager.find(null, function(err, data) {
+        res.render('index', {title: "Page d'accueil", ues: data});
+    });
 });
 
 router.get('/ue', function (req, res) {
