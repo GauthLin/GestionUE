@@ -16,4 +16,4 @@ block content
                         each activity in ue.activities
                             div.list-group-item
                                 h2
-                                    a #{activity.name} - #{activity.code}
+                                    a(href='/activities/'+ activity.id) #{activity.name} - #{activity.code}

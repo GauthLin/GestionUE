@@ -8,14 +8,14 @@ var ue_manager = require('../../manager/UEManager');
 
 // Creates new ue
 router.post('/', function (req, res) {
-    var code = req.body.code, name = req.body.name;
+    var code = req.body.code, name = req.body.name, pre = req.body.pre;
     // check values
     if (code.length === 0 || name.length === 0) {
         res.json({status: 'error', data: "Le nom et le code de l'unité d'enseignement ne peuvent pas être vide !"});
         return;
     }
 
-    ue_manager.add(code, name, function () {
+    ue_manager.add(code, name, pre, function () {
         res.json({'status': 'success', 'data': null});
     });
 });

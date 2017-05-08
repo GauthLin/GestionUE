@@ -4,39 +4,47 @@ block link
     - var current_page = 'activities'
 
 block content
+    - var act = activities ? activities[0] : null
+    - var action = act ? '/api/activities/'+act.id: '/api/activities'
     h1= title
     if ues.length == 0
         div.alert.alert-warning Vous devez d'abord créer une unité d'enseignement avant de pouvoir créer de nouvelles activités.
-    form.form-horizontal(action='/api/activities', method='post')
+
+    form.form-horizontal(action=action, method=act ? 'put' : 'post')
         div.form-group
             label(class='col-sm-2 control-label', for='name') Nom
             div.col-sm-10
-                input(type='text', class='form-control', id='name', name='name', required)
+                input(type='text', class='form-control', id='name', name='name', required, value=act ? act.name : '')
         div.form-group
             label(class='col-sm-2 control-label', for='code') Code
             div.col-sm-10
-                input(type='text', class='form-control', id='code', name='code', required)
+                input(type='text', class='form-control', id='code', name='code', required, value=act ? act.code : '')
         div.form-group
             label(class='col-sm-2 control-label', for='type') Type
             div.col-sm-10
                 select(class='form-control', id='type', name='type', required)
                     option(value='') -- Veuillez choisir un type d'activité --
-                    option(value='course') Cours
-                    option(value='laboratory') Laboratoire
+                    option(value='course', selected=act ? act.type == 'course' : false) Cours
+                    option(value='laboratory', selected=act ? act.type == 'laboratory' : false) Laboratoire
         div.form-group
             label(class='col-sm-2 control-label', for='hours') Nombre d'heures
             div.col-sm-10
-                input(type='number', min='0.5', step='0.5', class='form-control', id='hours', name='hours', required)
+                input(type='number', min='0.5', step='0.5', class='form-control', id='hours', name='hours', required, value=act ? act.hours : 0)
         div.form-group
             label(class='col-sm-2 control-label', for='ue') Unité d'enseignement
             div.col-sm-10
                 select(class='form-control', id='ue', name='ue', required)
                     option(value='') -- Veuillez choisir une unité d'enseignement --
                     each ue in ues
-                        option(value=ue.id)= ue.name
+                        option(value=ue.id, selected=act ? act.ue_id === ue.id : false)= ue.name
         div.form-group
             label(class='col-sm-2 control-label', for='local') Local de prédilection
             div.col-sm-10
-                input(type='text', class='form-control', id='local', name='local')
+                input(type='text', class='form-control', id='local', name='local', value=act ? act.local : '')
         div.col-sm-offset-2
-            button(type='submit', class='btn btn-success') Créer l'activité
+            if act
+                button(type='submit', class='btn btn-warning') Modifier
+                | &nbsp;
+                a(href='/api/activities/' + act.id class='btn btn-danger') Supprimer
+            else
+                button(type='submit', class='btn btn-success') Créer l'activité

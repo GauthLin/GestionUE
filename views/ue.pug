@@ -4,20 +4,35 @@ block link
     - var current_page = 'ue'
 
 block content
+    - var UE = ue ? ue[0] : null;
     h1= title
-    form.form-horizontal(action='/api/ue', method = ue ? 'put' : 'post')
+    form.form-horizontal(action=UE ? '/api/ue/' + UE.id : '/api/ue', method = UE ? 'put' : 'post')
         div.form-group
             label(class='col-sm-2 control-label', for='name') Nom
             div.col-sm-10
-                input(type='text', class='form-control', id='name', name='name', value= ue ? ue[0].name : '')
+                input(type='text', class='form-control', id='name', name='name', value= UE ? UE.name : '')
         div.form-group
             label(class='col-sm-2 control-label', for='code') Code
             div.col-sm-10
-                input(type='text', class='form-control', id='code', name='code', value= ue ? ue[0].code : '')
+                input(type='text', class='form-control', id='code', name='code', value= UE ? UE.code : '')
+        div.form-group
+            label(class='col-sm-2 control-label', for='pre') Prérequis
+            div.col-sm-10
+                select(class='form-control', id='pre', name='pre', multiple)
+                    each pre in ues
+                        if UE
+                            if UE.id !== pre.id
+                                - var is_pre = false
+                                each id in UE.prerequisites
+                                    if pre.id == id
+                                        - is_pre = true
+                                option(value=pre.id, selected=is_pre)= pre.name
+                        else
+                            option(value=pre.id)= pre.name
         div.col-sm-offset-2
-            if ue
+            if UE
                 button(type='submit', class='btn btn-warning') Modifier
-                |
-                button(type='button', class='btn btn-danger') Supprimer
+                | &nbsp;
+                a(href="/ue/" + UE.id, class='btn btn-danger') Supprimer
             else
                 button(type='submit', class='btn btn-success') Créer l'unité d'enseignement
