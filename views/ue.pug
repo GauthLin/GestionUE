@@ -6,7 +6,7 @@ block link
 block content
     - var UE = ue ? ue[0] : null;
     h1= title
-    form.form-horizontal(action=UE ? '/api/ue/' + UE.id : '/api/ue', method = UE ? 'put' : 'post')
+    form.form-horizontal(action=UE ? '/api/ue/' + UE.id : '/api/ue', method=UE ? 'put' : 'post', id='form_ue')
         div.form-group
             label(class='col-sm-2 control-label', for='name') Nom
             div.col-sm-10
@@ -33,6 +33,6 @@ block content
             if UE
                 button(type='submit', class='btn btn-warning') Modifier
                 | &nbsp;
-                a(href="/ue/" + UE.id, class='btn btn-danger') Supprimer
+                a(href="/ue/" + UE.id, class='btn btn-danger', id='del_ue', data-id=UE.id) Supprimer
             else
                 button(type='submit', class='btn btn-success') Créer l'unité d'enseignement

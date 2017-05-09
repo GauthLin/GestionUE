@@ -16,7 +16,26 @@ router.post('/', function (req, res) {
     }
 
     ue_manager.add(code, name, pre, function () {
-        res.json({'status': 'success', 'data': null});
+        res.json({status: 'success', data: null});
+    });
+});
+
+router.put('/:id', function(req, res) {
+    var code = req.body.code, name = req.body.name, pre = req.body.pre, id = req.params.id;
+    // check values
+    if (code.length === 0 || name.length === 0) {
+        res.json({status: 'error', data: "Le nom et le code de l'unité d'enseignement ne peuvent pas être vide !"});
+        return;
+    }
+
+    ue_manager.put(id, code, name, pre, function() {
+        res.json({status: 'success', data: null});
+    })
+});
+
+router.delete('/:id', function(req, res) {
+    ue_manager.delete(req.params.id, function() {
+        res.json({status: 'success', data: null});
     });
 });
 
