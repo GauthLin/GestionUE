@@ -10,7 +10,7 @@ block content
     if ues.length == 0
         div.alert.alert-warning Vous devez d'abord créer une unité d'enseignement avant de pouvoir créer de nouvelles activités.
 
-    form.form-horizontal(action=action, method=act ? 'put' : 'post')
+    form.form-horizontal(action=action, method=act ? 'put' : 'post', id='form_activity')
         div.form-group
             label(class='col-sm-2 control-label', for='name') Nom
             div.col-sm-10
@@ -45,6 +45,6 @@ block content
             if act
                 button(type='submit', class='btn btn-warning') Modifier
                 | &nbsp;
-                a(href='/api/activities/' + act.id class='btn btn-danger') Supprimer
+                a(href='/api/activities/' + act.id class='btn btn-danger', id='del_activity') Supprimer
             else
                 button(type='submit', class='btn btn-success') Créer l'activité

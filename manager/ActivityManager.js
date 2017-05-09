@@ -13,12 +13,28 @@ Activity.insert = function(code, hours, local, name, type, ue_id, callback) {
     });
 };
 
+Activity.update = function(id, code, hours, local, name, type, ue_id, callback) {
+    db.serialize(function() {
+        db.run('UPDATE activities SET name = ?, code = ?, type = ?, hours = ?, local = ?, ue_id = ? WHERE id = ?', [name, code, type, hours, local, ue_id, id], function() {
+            callback();
+        });
+    });
+};
+
+Activity.delete = function(id, callback) {
+    db.serialize(function() {
+        db.run("DELETE FROM activities WHERE id = ?", id, function() {
+            callback();
+        })
+    });
+};
+
 Activity.find = function(id, callback) {
     var data = [];
 
     var sql_act = "SELECT * FROM activities";
     sql_act += id !== undefined && id !== null ? ' WHERE id = ' + parseInt(id) : '';
-    db.each(sql_act, function (err, row) {
+    db.each(sql_act, function(err, row) {
         data.push({
             id: row.id,
             name: row.name,

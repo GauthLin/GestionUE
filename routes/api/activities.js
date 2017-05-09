@@ -12,7 +12,26 @@ router.post('/', function(req, res) {
         local = req.body.local;
 
     activity_manager.insert(code, hours, local, name, type, ue_id, function() {
-        res.json({'status': 'success', 'data': null});
+        res.json({status: 'success', data: null});
+    });
+});
+
+router.put('/:id', function(req, res) {
+    var name = req.body.name,
+        code = req.body.code,
+        type = req.body.type,
+        hours = req.body.hours,
+        ue_id = req.body.ue,
+        local = req.body.local;
+
+    activity_manager.update(req.params.id, code, hours, local, name, type, ue_id, function() {
+        res.json({status: 'success', data: null});
+    })
+});
+
+router.delete('/:id', function(req, res) {
+    activity_manager.delete(req.params.id, function() {
+        res.json({status: 'success', data: null});
     });
 });
 
