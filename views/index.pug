@@ -6,14 +6,29 @@ block content
     if error
         div.alert.alert-warning= error
     else
-        div.list-group
-            each ue in ues
-                div.list-group-item
-                    h2
-                        a(href='/ue/'+ ue.id) #{ue.name} - #{ue.code}
+        div.col-sm-2.list-group
+            div.list-group-item.list-group-item-success Unités d'enseignement
+            each u in ues
+                a.list-group-item(href='/display/' + u.id, class={active: u.id === ue.id})= u.name
+                    span.badge= u.activities.length
 
-                    div.list-group
-                        each activity in ue.activities
-                            div.list-group-item
-                                h2
-                                    a(href='/activities/'+ activity.id) #{activity.name} - #{activity.code}
+        - var activities = ue.activities
+        div.col-sm-10
+            div.btn-group(style='margin-bottom: 15px;')
+                a(href='/ue/' + ue.id).btn.btn-warning Modifier l'unité d'enseignement
+                a(href='/api/ue/' + ue.id).btn.btn-danger.del_ue Supprimer l'unité d'enseignement
+            if activities.length < 1
+                div.alert.alert-warning Cette unité d'enseignement ne possède pas encore d'activités.
+            else
+                each activity in activities
+                    div.panel.panel-default
+                        div.panel-heading.clearfix= activity.name
+                            div.pull-right.btn-group
+                                a(href='/activities/'+ activity.id).btn.btn-sm.btn-warning Modifier
+                                a(href='/api/activities/' + activity.id).btn.btn-sm.btn-danger.del-activity Supprimer
+                        div.panel-body
+                            p <strong>Code</strong>: #{activity.code}
+                            p <strong>Type</strong>: #{activity.type}
+                            p <strong>Durée de l'activité</strong>: #{activity.hours}
+                            if activity.local
+                                p <strong>Local</strong>: #{activity.local}

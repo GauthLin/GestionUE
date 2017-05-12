@@ -9,7 +9,15 @@ var ue_manager = require('../manager/UEManager'),
 
 router.get('/', function (req, res) {
     ue_manager.find(null, function(err, data) {
-        res.render('index', {title: "Page d'accueil", ues: data});
+        res.render('index', {title: "Page d'accueil", ues: data, ue: data[0]});
+    });
+});
+
+router.get('/display/:id', function (req, res) {
+    ue_manager.find(null, function(err, data) {
+        ue_manager.find(req.params.id, function(err, ue) {
+            res.render('index', {title: "Page d'accueil", ues: data, ue: ue[0]});
+        });
     });
 });
 

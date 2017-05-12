@@ -45,6 +45,6 @@ block content
             if act
                 button(type='submit', class='btn btn-warning') Modifier
                 | &nbsp;
-                a(href='/api/activities/' + act.id class='btn btn-danger', id='del_activity') Supprimer
+                a(href='/api/activities/' + act.id class='btn btn-danger del-activity') Supprimer
             else
                 button(type='submit', class='btn btn-success') Créer l'activité

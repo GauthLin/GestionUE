@@ -22,7 +22,7 @@ UE.find = function (id, callback) {
                 code: row.code,
                 type: row.type,
                 hours: row.hours,
-                local: row.type
+                local: row.local
             })
         });
 

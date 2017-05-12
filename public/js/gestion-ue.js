@@ -3,7 +3,7 @@
      * UE MANAGEMENT
      */
     // deletes ue
-    $('a#del_ue').on('click', function(e) {
+    $('.del_ue').on('click', function(e) {
         e.preventDefault();
 
         var url = $(this).attr('href');
@@ -36,7 +36,7 @@
     });
 
     // deletes activity
-    $('a#del_activity').on('click', function(e) {
+    $('.del-activity').on('click', function(e) {
         e.preventDefault();
 
         var url = $(this).attr('href');
