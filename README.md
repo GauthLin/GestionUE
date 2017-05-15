@@ -7,7 +7,7 @@ Cette application, _GestionUE_, permet de gérer les unités d'enseignement via 
 L'application offre également une **RESTful API** pour récupérer, ajouter, modifier et supprimer des unités d'enseignement et des activités.
 
 ## Langages de programmation
-Le front-end de l'application est programmé en HTML, CSS et jQuery tandis que le back-end utilise le framework _Nodejs_ ppur sa simplicité et sa rapidité. 
+Le front-end de l'application est programmé en HTML, CSS et jQuery tandis que le back-end utilise le framework _Nodejs_ pour sa simplicité et sa rapidité. 
 
 ## Structure du projet
 Le projet _Nodejs_ est divisé en différents fichiers et dossiers:
@@ -32,10 +32,31 @@ La structure de la base de données est montrée sur la figure ci-dessous. Comme
 TODO
 
 ## RESTful API
-TODO
+Comme expliqué ci-dessus, l'application offre une RESTful API disponible à l'adresse _/api_. Ci-dessous sont détaillés l'ensemble des requêtes possibles:
 
-## Amélioration
-TODO
+- [GET] /api/ue: renvoie un tableau contenant l'ensemble des unités d'enseignement.
+- [GET] /api/ue/_:id_: récupère les informations d'une unité d'enseignement en fonction de l'identifiant _id_.
+- [PUT] /api/ue/_:id_: modifie les données d'une unité d'enseignement.
+- [POST] /api/ue: crée une nouvelle unité d'enseignement.
+- [DELETE] /api/ue/_:id_: supprime l'unité d'enseignement ayant comme identifiant _id_.
+
+
+- [GET] /api/activities: récupère toutes les activités.
+- [GET] /api/activities/_:id_: recupère l'activité ayant comme identifiant _id_.
+- [PUT] /api/activities/_:id_: modifie l'activité ayant comme identifiant _id_.
+- [POST] /api/activities: crée une nouvelle activité
+- [DELETE] /api/activities/_:id__: supprime l'activité ayant comme identifiant _id_.
+
+Toutes les routes de l'API sont définies dans le dossier _/routes/api/_.
 
 ## Conclusion
-TODO
+L'application offre les fonctionnalités suivantes:
+- Interface graphique permettant une gestion complète des unités d'enseignement, des prérequis et des activités.
+- RESTful API qui permet de communiquer avec le serveur depuis d'autres applications/services externes.
+- SQLite qui sauvegarde de manière permanente les données.
+
+L'application possède quelques défauts qui peuvent être améliorés. Les pistes d'amélioration sont indiquées ci-dessous:
+- Améliorer la sécurité de l'application. En effet, pour l'instant seulement certaines données sont vérifiés avant de le sauvegarder.
+- Lors de la création d'une activité, il est possible d'entrer un local de prédilection. Ce champ est un champ texte, l'utilisateur peut ainsi entrer n'importe quel local même inexistant. L'idée serait d'aller récupérer la liste des locaux disponibles depuis un service externe.
+
+Pour finir, l'application est entièrement fonctionnelle.
