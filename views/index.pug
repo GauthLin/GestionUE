@@ -3,20 +3,32 @@ extends layout
 block content
     h1= title
 
+    - var type = {course: 'Cours', laboratory: 'Laboratoire'}
     if error
         div.alert.alert-warning= error
+    else if ues.length == 0
+        div.alert.alert-info Il n'y a encore aucune unité d'enseignement disponible.
     else
-        div.col-sm-2.list-group
+        div.col-sm-3.list-group
             div.list-group-item.list-group-item-success Unités d'enseignement
             each u in ues
                 a.list-group-item(href='/display/' + u.id, class={active: u.id === ue.id})= u.name
                     span.badge= u.activities.length
 
         - var activities = ue.activities
-        div.col-sm-10
+        div.col-sm-9
             div.btn-group(style='margin-bottom: 15px;')
                 a(href='/ue/' + ue.id).btn.btn-warning Modifier l'unité d'enseignement
                 a(href='/api/ue/' + ue.id).btn.btn-danger.del_ue Supprimer l'unité d'enseignement
+
+            if ue.prerequisites.length > 0
+                div.alert.alert-warning Cette unité d'enseignement possède les prérequis suivants :
+                    ul
+                    each pre in ue.prerequisites
+                        for ue in ues
+                            if ue.id == pre
+                                li= ue.name
+
             if activities.length < 1
                 div.alert.alert-warning Cette unité d'enseignement ne possède pas encore d'activités.
             else
@@ -28,7 +40,7 @@ block content
                                 a(href='/api/activities/' + activity.id).btn.btn-sm.btn-danger.del-activity Supprimer
                         div.panel-body
                             p <strong>Code</strong>: #{activity.code}
-                            p <strong>Type</strong>: #{activity.type}
-                            p <strong>Durée de l'activité</strong>: #{activity.hours}
+                            p <strong>Type</strong>: #{type[activity.type]}
+                            p <strong>Durée de l'activité</strong>: #{activity.hours}h
                             if activity.local
                                 p <strong>Local</strong>: #{activity.local}

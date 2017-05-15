@@ -72,7 +72,10 @@ UE.delete = function (id, callback) {
 
 function insertPre(pres, ue_id, callback) {
     var sql = 'INSERT INTO prerequisites';
-    if (typeof pres === 'string')
+
+    if (pres === undefined)
+        pres = [];
+    else if (typeof pres === 'string')
         pres = [pres];
 
     pres.forEach(function (pre, index) {
